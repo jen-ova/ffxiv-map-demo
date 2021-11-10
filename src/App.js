@@ -2,6 +2,7 @@ import "./App.css";
 import { MapContainer, ImageOverlay, Marker, Popup } from "react-leaflet";
 import { CRS } from "leaflet";
 import arcanistmiddlelanoscea from "./data/arcanist-middlelanoscea.json";
+import huntIcon from "./huntIcon.js";
 
 function App() {
   console.log(arcanistmiddlelanoscea);
@@ -19,7 +20,9 @@ function App() {
         ]}
         attributionControl={false}
         crs={CRS.Simple}
-        zoomSnap={0}>
+        zoomSnap={0}
+        minZoom={4}
+        maxZoom={7}>
         <ImageOverlay
           bounds={[
             [1, 1],
@@ -29,7 +32,10 @@ function App() {
         />
 
         {arcanistmiddlelanoscea.map((arc) => (
-          <Marker key={arc.id} position={toLatLong([arc.x, arc.y])}>
+          <Marker
+            key={arc.id}
+            position={toLatLong([arc.x, arc.y])}
+            icon={huntIcon}>
             <Popup>
               <img src={arc.mobIcon} alt={arc.mobName} />
               <p>{arc.mobName}</p>
